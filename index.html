@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <script defer src="https://unpkg.com/vue@next"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-6 mt-5" id="app">
+          <h1 class="text-center mb-4">Todolist</h1>
+
+
+          <form @submit.prevent="addTask">
+            <input type="text" class="form-control" v-model="task" v-focus />
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" :disabled="!task.trim()"> Add </button>
+            </div>
+          </form>
+
+
+
+          <p class="text-center text-muted mt-5" v-if="!tasks.length">No tasks.</p>
+
+
+          <div v-else>
+
+            <p class="text-center mt-5"> <strong>{{ tasks.length }}</strong> {{ tasks.length == 1 ? 'task' : 'tasks' }}</p>
+            <ul class="list-group mt-5">
+              <li v-for="task in tasks" :key="task.id" class="list-group-item d-flex justify-content-between align-items-center">
+                {{ task.content.substr(0, 50)}}
+                <button @click.prevent="deleteTask(task.id)" class="btn btn-danger btn-sm">X</button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
