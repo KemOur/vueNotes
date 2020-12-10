@@ -6,11 +6,22 @@ const options = {
     };
   },
   methods: {
+    open(task){
+      this.$emit('open',task)
+    },
+
+    open(task){
+      task.toggle = !task.toggle,
+          this.saveItems()
+    },
+    saveItems() {
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    },
+
     addTask() {
       if (!this.task) {
         return;
       }
-
       const task = {
         id: Date.now(),
         content: this.task,
@@ -24,6 +35,7 @@ const options = {
       this.tasks = this.tasks.filter((task) => {
         return id !== task.id;
       });
+
       localStorage.setItem("tasks", JSON.stringify(this.tasks));
     },
   },
